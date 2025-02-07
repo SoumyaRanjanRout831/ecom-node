@@ -74,9 +74,19 @@ const deleteCategory = async (req, res) => {
   }
 };
 
+const getCategory = async (req, res) =>{
+  try {
+    const allCategory = await Category.find()
+  return res.status(200).send({message: "All Cateogries", categories: allCategory})
+  }catch(error){
+    res.status(500).json({error: error.message})
+  }
+}
+
 // Export Handlers
 module.exports = {
   createCategory,
   updateCategory,
   deleteCategory,
+  getCategory
 };
