@@ -78,6 +78,7 @@ const deleteCategory = async (req, res) => {
   }
 };
 
+//Get All Category
 const getCategory = async (req, res) =>{
   try {
     const categories = await Category.find()
@@ -87,6 +88,7 @@ const getCategory = async (req, res) =>{
   }
 }
 
+//Get Category by ID
 const getByIdCategory = async (req, res) =>{
   try{
     const {id} = req.params;
@@ -104,7 +106,6 @@ const getByIdCategory = async (req, res) =>{
   }
 }
 
-// Export Handlers
 module.exports = {
   createCategory,
   updateCategory,

@@ -14,7 +14,9 @@ app.use(express.json());
 
 //  Routes
 const categoryRoutes = require("./routes/category");
+const productRoutes = require("./routes/product");
 app.use("/category", categoryRoutes);
+app.use("/product", productRoutes);
 
 
 // Connect to MongoDB
