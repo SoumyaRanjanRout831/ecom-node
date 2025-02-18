@@ -15,6 +15,10 @@ const createCategory = async (req, res) => {
       .status(201)
       .json({ message: "Category created successfully", category });
   } catch (error) {
+
+    if (error.code === 11000 && error.keyPattern?.name) {
+      return res.status(400).json({ error: "Category name already exists" });
+    }
     res.status(500).json({ error: error.message });
   }
 };
@@ -76,10 +80,27 @@ const deleteCategory = async (req, res) => {
 
 const getCategory = async (req, res) =>{
   try {
-    const allCategory = await Category.find()
-  return res.status(200).send({message: "All Cateogries", categories: allCategory})
+    const categories = await Category.find()
+  return res.status(200).json({message: "All Cateogries", categories})
   }catch(error){
-    res.status(500).json({error: error.message})
+   return res.status(500).json({error: error.message})
+  }
+}
+
+const getByIdCategory = async (req, res) =>{
+  try{
+    const {id} = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "Category Id required" });
+    }
+
+    const getcategoryByID = await Category.findById(id);
+    if(!getcategoryByID){
+      return res.status(404).json({message: "Category not found!"})
+    }
+    return res.status(200).json({message: "category details", getcategoryByID})
+  }catch(error){
+   return res.status(500).json({error: error.message})
   }
 }
 
@@ -88,5 +109,6 @@ module.exports = {
   createCategory,
   updateCategory,
   deleteCategory,
-  getCategory
+  getCategory,
+  getByIdCategory
 };
