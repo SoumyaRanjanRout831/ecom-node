@@ -62,8 +62,8 @@ const updateBrand = async (req, res) => {
     if (!id && !name) {
       return res.status(404).json({ message: "ID and name are required" });
     }
-    const updateProduct = await Brand.findByIdAndUpdate(id, { name });
-    if (!updateProduct) {
+    const updateBrand = await Brand.findByIdAndUpdate(id, { name });
+    if (!updateBrand) {
       return res.status(401).json({ message: "id not found!" });
     }
     return res.status(200).json({ message: "Brand updated sucessfully!" });
@@ -80,12 +80,12 @@ const deleteBrand = async (req, res) => {
     if (!id) {
       return res.status(404).json({ message: "No ID found!" });
     }
-    const deleteProduct = await Brand.findByIdAndDelete(id);
+    const deleteBrand = await Brand.findByIdAndDelete(id);
 
-    if (!deleteProduct) {
-      return res.status(404).send({ message: "Product Not found" });
+    if (!deleteBrand) {
+      return res.status(404).send({ message: "Brand Not found" });
     }
-    return res.status(200).json({ message: "Product deleted sucessfully" });
+    return res.status(200).json({ message: "Brand deleted sucessfully" });
   } catch (error) {
     return res.sttus(500).json({ message: error.message });
   }

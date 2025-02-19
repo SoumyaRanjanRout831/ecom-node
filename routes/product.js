@@ -1,20 +1,20 @@
 const express = require("express");
 
 const {
-  createBrand,
-  getAllBrand,
-  getBrandById,
-  updateBrand,
-  deleteBrand,
-} = require("../handlers/brand-handler");
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} = require("../handlers/product-handler");
 
 const router = express.Router();
 
 //Routes
-router.post("/", createBrand);
-router.get("/", getAllBrand);
-router.get("/:id", getBrandById);
-router.put("/:id", updateBrand);
-router.delete("/:id", deleteBrand);
+router.post("/", createProduct);
+router.get("/", getAllProducts);
+router.get("/:id", getProductById);
+router.put("/:id", updateProduct);
+router.delete("/:id", deleteProduct);
 
 module.exports = router;

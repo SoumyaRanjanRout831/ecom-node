@@ -8,15 +8,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
 app.use(cors());
 app.use(express.json());
 
 //  Routes
 const categoryRoutes = require("./routes/category");
+const brandRoutes = require("./routes/brand");
 const productRoutes = require("./routes/product");
 app.use("/category", categoryRoutes);
+app.use("/brand", brandRoutes);
 app.use("/product", productRoutes);
+
 
 
 // Connect to MongoDB
@@ -24,7 +26,6 @@ async function connectDb() {
   try {
     await mongoose.connect(process.env.DB_URI, {
       dbName: process.env.DB_NAME,
-      
     });
     console.log("MongoDB Connected!");
 
@@ -32,13 +33,11 @@ async function connectDb() {
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
-
   } catch (error) {
     console.error("MongoDB Connection Failed:", error.message);
-    process.exit(1); 
+    process.exit(1);
   }
 }
-
 
 process.on("SIGINT", async () => {
   console.log("Closing MongoDB connection...");
@@ -46,6 +45,5 @@ process.on("SIGINT", async () => {
   console.log("MongoDB Disconnected!");
   process.exit(0);
 });
-
 
 connectDb();
